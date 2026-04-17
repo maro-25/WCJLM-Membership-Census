@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WC Jubilee Life Ministries - Membership Census Form</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --accent: #111827;
+      --accent-soft: #f3f4f6;
+      --danger: #b91c1c;
+      --success: #166534;
+      --gold: #d4af37;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(212, 175, 55, 0.12), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .brand img {
+      max-width: 120px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid rgba(212, 175, 55, 0.35);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .notice {
+      margin: 18px 0 0;
+      padding: 12px 14px;
+      background: #fff8e1;
+      border: 1px solid #f3d57c;
+      border-radius: 10px;
+      color: #6b4e00;
+      font-size: 0.95rem;
+    }
+
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 18px 0;
+    }
+
+    legend {
+      font-weight: bold;
+      padding: 0 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      font: inherit;
+    }
+
+    input, select, textarea {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(17, 24, 39, 0.12);
+      border-color: var(--gold);
+    }
+
+    .required::after {
+      content: " *";
+      color: var(--danger);
+    }
+
+    .inline {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .inline label {
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .repeat-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .repeat-item {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fafafa;
+    }
+
+    .repeat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 12px;
+    }
+
+    .repeat-title {
+      font-weight: bold;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 14px;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+      width: auto;
+      padding: 8px 12px;
+    }
+
+    .status {
+      margin-top: 16px;
+      font-weight: 600;
+      min-height: 1.2em;
+    }
+
+    .status.error { color: var(--danger); }
+    .status.success { color: var(--success); }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="brand">
+        <img src="logo.jpeg" alt="Jubilee West Coast logo" />
+        <h1>West Coast Jubilee Life Ministries</h1>
+        <p class="subtitle">Membership Census Form</p>
+      </div>
+
+      <div class="notice">
+        Required fields are marked with <strong>*</strong>. Please complete the Household Details section before submitting the form.
+      </div>
+
+      <form id="membershipForm" novalidate>
+        <fieldset>
+          <legend>Household Details</legend>
+          <p class="hint">This section is mandatory.</p>
+
+          <div class="grid">
+            <div>
+              <label class="required" for="mainContactName">Household Head / Main Contact Name</label>
+              <input id="mainContactName" name="mainContactName" type="text" required />
+            </div>
+
+            <div>
+              <label class="required" for="familyName">Family Name / Surname</label>
+              <input id="familyName" name="familyName" type="text" required />
+            </div>
+
+            <div>
+              <label class="required" for="primaryContact">Primary Contact Number</label>
+              <input id="primaryContact" name="primaryContact" type="tel" required />
+            </div>
+
+            <div>
+              <label for="secondaryContact">Secondary Contact Number</label>
+              <input id="secondaryContact" name="secondaryContact" type="tel" />
+            </div>
+
+            <div>
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email" />
+            </div>
+
+            <div>
+              <label class="required" for="submissionDate">Submission Date</label>
+              <input id="submissionDate" name="submissionDate" type="date" required />
+            </div>
+
+            <div class="full">
+              <label class="required" for="address">Residential Address</label>
+              <textarea id="address" name="address" required></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Father Details</legend>
+          <div class="grid">
+            <div>
+              <label for="fatherName">Father Name</label>
+              <input id="fatherName" name="fatherName" type="text" />
+            </div>
+
+            <div>
+              <label for="fatherBirthDate">Birth Date</label>
+              <input id="fatherBirthDate" name="fatherBirthDate" type="date" />
+            </div>
+
+            <div>
+              <label for="fatherMaritalStatus">Marital Status</label>
+              <select id="fatherMaritalStatus" name="fatherMaritalStatus">
+                <option value="">Select</option>
+                <option>Single</option>
+                <option>Married</option>
+                <option>Widowed</option>
+                <option>Divorced</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fatherEmployment">Employment / Occupation</label>
+              <input id="fatherEmployment" name="fatherEmployment" type="text" />
+            </div>
+
+            <div>
+              <label for="fatherMember">Church Member?</label>
+              <select id="fatherMember" name="fatherMember">
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fatherBaptised">Baptised?</label>
+              <select id="fatherBaptised" name="fatherBaptised">
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mother Details</legend>
+          <div class="grid">
+            <div>
+              <label for="motherName">Mother Name</label>
+              <input id="motherName" name="motherName" type="text" />
+            </div>
+
+            <div>
+              <label for="motherBirthDate">Birth Date</label>
+              <input id="motherBirthDate" name="motherBirthDate" type="date" />
+            </div>
+
+            <div>
+              <label for="motherMaritalStatus">Marital Status</label>
+              <select id="motherMaritalStatus" name="motherMaritalStatus">
+                <option value="">Select</option>
+                <option>Single</option>
+                <option>Married</option>
+                <option>Widowed</option>
+                <option>Divorced</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="motherEmployment">Employment / Occupation</label>
+              <input id="motherEmployment" name="motherEmployment" type="text" />
+            </div>
+
+            <div>
+              <label for="motherMember">Church Member?</label>
+              <select id="motherMember" name="motherMember">
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="motherBaptised">Baptised?</label>
+              <select id="motherBaptised" name="motherBaptised">
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Children Living in the Household</legend>
+          <div class="inline">
+            <span>Are there children living with the parents in this household?</span>
+            <label><input type="radio" name="hasChildren" value="Yes" /> Yes</label>
+            <label><input type="radio" name="hasChildren" value="No" checked /> No</label>
+          </div>
+
+          <div id="childrenSection" hidden>
+            <div id="childrenList" class="repeat-list"></div>
+            <div class="btn-row">
+              <button type="button" id="addChildBtn" class="btn-secondary">+ Add Child</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Grandchildren Living in the Household</legend>
+          <div class="inline">
+            <span>Are there grandchildren living with the parents in this household?</span>
+            <label><input type="radio" name="hasGrandchildren" value="Yes" /> Yes</label>
+            <label><input type="radio" name="hasGrandchildren" value="No" checked /> No</label>
+          </div>
+
+          <div id="grandchildrenSection" hidden>
+            <div id="grandchildrenList" class="repeat-list"></div>
+            <div class="btn-row">
+              <button type="button" id="addGrandchildBtn" class="btn-secondary">+ Add Grandchild</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Confirmation</legend>
+          <div class="checkbox-row">
+            <input id="declaration" name="declaration" type="checkbox" />
+            <label for="declaration">I confirm that the information provided is correct to the best of my knowledge.</label>
+          </div>
+        </fieldset>
+
+        <div class="btn-row">
+          <button type="submit" class="btn-primary">Submit Form</button>
+          <button type="reset" class="btn-secondary">Clear Form</button>
+        </div>
+
+        <div id="statusMessage" class="status"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    const form = document.getElementById("membershipForm");
+    const childrenSection = document.getElementById("childrenSection");
+    const grandchildrenSection = document.getElementById("grandchildrenSection");
+    const childrenList = document.getElementById("childrenList");
+    const grandchildrenList = document.getElementById("grandchildrenList");
+    const statusMessage = document.getElementById("statusMessage");
+
+    document.getElementById("submissionDate").value = new Date().toISOString().split("T")[0];
+
+    function toggleSection(name, sectionEl, listEl, createFn) {
+      const selected = new FormData(form).get(name);
+      const show = selected === "Yes";
+      sectionEl.hidden = !show;
+
+      if (show && listEl.children.length === 0) {
+        listEl.appendChild(createFn());
+      }
+
+      if (!show) {
+        listEl.innerHTML = "";
+      }
+    }
+
+    function createChildItem() {
+      const item = document.createElement("div");
+      item.className = "repeat-item";
+      item.innerHTML = `
+        <div class="repeat-header">
+          <div class="repeat-title">Child</div>
+          <button type="button" class="btn-danger remove-btn">Remove</button>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Child Name</label>
+            <input type="text" class="child-name" />
+          </div>
+          <div>
+            <label>Birth Date</label>
+            <input type="date" class="child-birthDate" />
+          </div>
+          <div>
+            <label>Contact Details</label>
+            <input type="text" class="child-contactDetails" />
+          </div>
+          <div>
+            <label>School / Work</label>
+            <input type="text" class="child-schoolWork" />
+          </div>
+          <div>
+            <label>Church Member?</label>
+            <select class="child-member">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div>
+            <label>Baptised?</label>
+            <select class="child-baptised">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+        </div>
+      `;
+
+      item.querySelector(".remove-btn").addEventListener("click", () => item.remove());
+      return item;
+    }
+
+    function createGrandchildItem() {
+      const item = document.createElement("div");
+      item.className = "repeat-item";
+      item.innerHTML = `
+        <div class="repeat-header">
+          <div class="repeat-title">Grandchild</div>
+          <button type="button" class="btn-danger remove-btn">Remove</button>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Grandchild Name</label>
+            <input type="text" class="grandchild-name" />
+          </div>
+          <div>
+            <label>Birth Date</label>
+            <input type="date" class="grandchild-birthDate" />
+          </div>
+          <div>
+            <label>School / Work</label>
+            <input type="text" class="grandchild-schoolWork" />
+          </div>
+          <div>
+            <label>Spiritual Status</label>
+            <select class="grandchild-spiritualStatus">
+              <option value="">Select</option>
+              <option>Dedicated</option>
+              <option>Baptised</option>
+              <option>Both</option>
+              <option>Neither</option>
+            </select>
+          </div>
+          <div>
+            <label>Mother's Name</label>
+            <input type="text" class="grandchild-motherName" />
+          </div>
+          <div>
+            <label>Father's Name</label>
+            <input type="text" class="grandchild-fatherName" />
+          </div>
+        </div>
+      `;
+
+      item.querySelector(".remove-btn").addEventListener("click", () => item.remove());
+      return item;
+    }
+
+    document.querySelectorAll('input[name="hasChildren"]').forEach(el => {
+      el.addEventListener("change", () => {
+        toggleSection("hasChildren", childrenSection, childrenList, createChildItem);
+      });
+    });
+
+    document.querySelectorAll('input[name="hasGrandchildren"]').forEach(el => {
+      el.addEventListener("change", () => {
+        toggleSection("hasGrandchildren", grandchildrenSection, grandchildrenList, createGrandchildItem);
+      });
+    });
+
+    document.getElementById("addChildBtn").addEventListener("click", () => {
+      childrenList.appendChild(createChildItem());
+    });
+
+    document.getElementById("addGrandchildBtn").addEventListener("click", () => {
+      grandchildrenList.appendChild(createGrandchildItem());
+    });
+
+    function value(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function hasAnyValue(obj) {
+      return Object.values(obj).some(v => String(v || "").trim() !== "");
+    }
+
+    function collectChildren() {
+      const rows = [...childrenList.querySelectorAll(".repeat-item")].map(row => ({
+        name: row.querySelector(".child-name").value.trim(),
+        birthDate: row.querySelector(".child-birthDate").value,
+        contactDetails: row.querySelector(".child-contactDetails").value.trim(),
+        schoolWork: row.querySelector(".child-schoolWork").value.trim(),
+        member: row.querySelector(".child-member").value,
+        baptised: row.querySelector(".child-baptised").value
+      }));
+      return rows.filter(hasAnyValue);
+    }
+
+    function collectGrandchildren() {
+      const rows = [...grandchildrenList.querySelectorAll(".repeat-item")].map(row => ({
+        name: row.querySelector(".grandchild-name").value.trim(),
+        birthDate: row.querySelector(".grandchild-birthDate").value,
+        schoolWork: row.querySelector(".grandchild-schoolWork").value.trim(),
+        spiritualStatus: row.querySelector(".grandchild-spiritualStatus").value,
+        motherName: row.querySelector(".grandchild-motherName").value.trim(),
+        fatherName: row.querySelector(".grandchild-fatherName").value.trim()
+      }));
+      return rows.filter(hasAnyValue);
+    }
+
+    function setStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = `status ${type}`;
+    }
+
+    function validateForm(payload) {
+      if (!payload.household.mainContactName) return "Please enter the household head or main contact name.";
+      if (!payload.household.familyName) return "Please enter the family name / surname.";
+      if (!payload.household.primaryContact) return "Please enter a primary contact number.";
+      if (!payload.household.address) return "Please enter the residential address.";
+      if (!payload.household.submissionDate) return "Please enter the submission date.";
+      if (!payload.declaration) return "Please confirm the declaration before submitting.";
+      if (payload.hasChildren === "Yes" && payload.children.length === 0) return "Please add at least one child record or select No.";
+      if (payload.hasGrandchildren === "Yes" && payload.grandchildren.length === 0) return "Please add at least one grandchild record or select No.";
+      return "";
+    }
+
+    function redirectToThankYou(payload) {
+      const params = new URLSearchParams({
+        family: payload.household.familyName || "",
+        contact: payload.household.mainContactName || ""
+      });
+      window.location.href = `thank-you.html?${params.toString()}`;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setStatus("", "");
+
+      const formData = new FormData(form);
+
+      const payload = {
+        household: {
+          mainContactName: value("mainContactName"),
+          familyName: value("familyName"),
+          primaryContact: value("primaryContact"),
+          secondaryContact: value("secondaryContact"),
+          email: value("email"),
+          address: value("address"),
+          submissionDate: value("submissionDate")
+        },
+        father: {
+          name: value("fatherName"),
+          birthDate: value("fatherBirthDate"),
+          maritalStatus: document.getElementById("fatherMaritalStatus").value,
+          employment: value("fatherEmployment"),
+          member: document.getElementById("fatherMember").value,
+          baptised: document.getElementById("fatherBaptised").value
+        },
+        mother: {
+          name: value("motherName"),
+          birthDate: value("motherBirthDate"),
+          maritalStatus: document.getElementById("motherMaritalStatus").value,
+          employment: value("motherEmployment"),
+          member: document.getElementById("motherMember").value,
+          baptised: document.getElementById("motherBaptised").value
+        },
+        hasChildren: formData.get("hasChildren") || "No",
+        hasGrandchildren: formData.get("hasGrandchildren") || "No",
+        children: collectChildren(),
+        grandchildren: collectGrandchildren(),
+        declaration: document.getElementById("declaration").checked,
+        submittedFrom: window.location.href
+      };
+
+      const validationError = validateForm(payload);
+      if (validationError) {
+        setStatus(validationError, "error");
+        return;
+      }
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        redirectToThankYou(payload);
+      } catch (error) {
+        console.error(error);
+        setStatus("Submission failed. Please try again.", "error");
+      }
+    });
+
+    form.addEventListener("reset", () => {
+      setTimeout(() => {
+        childrenList.innerHTML = "";
+        grandchildrenList.innerHTML = "";
+        childrenSection.hidden = true;
+        grandchildrenSection.hidden = true;
+        document.getElementById("submissionDate").value = new Date().toISOString().split("T")[0];
+        setStatus("", "");
+      }, 0);
+    });
+  </script>
+</body>
+</html>

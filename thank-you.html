@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You - WC Jubilee Life Ministries</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --accent: #111827;
+      --gold: #d4af37;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(212, 175, 55, 0.14), transparent 32%),
+        var(--bg);
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 700px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 24px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    img {
+      max-width: 120px;
+      width: 100%;
+      display: block;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      border: 3px solid rgba(212, 175, 55, 0.35);
+      background: #fff;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+    }
+
+    p {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .muted { color: var(--muted); }
+
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+    }
+
+    a.secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="logo.jpeg" alt="Jubilee West Coast logo" />
+    <h1>Thank You</h1>
+    <p id="message">Your household information has been submitted.</p>
+    <p class="muted">Thank you for helping West Coast Jubilee Life Ministries keep its membership records updated.</p>
+    <div class="actions">
+      <a href="index.html">Submit Another Form</a>
+      <a href="javascript:window.print()" class="secondary">Print This Page</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const family = params.get("family");
+    const contact = params.get("contact");
+
+    const message = document.getElementById("message");
+    if (family || contact) {
+      const safeFamily = family ? `${family} family` : "household";
+      const safeContact = contact ? `, ${contact}` : "";
+      message.textContent = `Thank you${safeContact}. The ${safeFamily} information has been submitted.`;
+    }
+  </script>
+</body>
+</html>
